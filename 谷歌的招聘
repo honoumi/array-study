@@ -1,0 +1,73 @@
+/*自然常数 e 是一个著名的超越数，前面若干位写出来是这样的：e = 2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427466391932003059921... 其中粗体标出的 10 位数就是答案。
+
+本题要求你编程解决一个更通用的问题：从任一给定的长度为 L 的数字中，找出最早出现的 K 位连续数字所组成的素数。*/
+
+#include<stdio.h>
+#include<string.h>
+int prime(int x)
+{
+	if (x > 2)
+	{
+		for (int i = 2; i <= sqrt(x); i++)
+		{
+			if (x % i == 0)
+				return 0;
+		}
+	}
+	else if(x ==1 || x ==0)
+	{
+		return 0;
+	}
+	else if (x == 2)
+	{
+		return 1;
+	}
+	return 1;
+}
+
+void trans(char arr[],int num,int digital [])
+{
+	for (int i = 0; i < num; i++)
+	{
+		digital[i] = arr[i] - '0';
+	}
+
+}
+int main()
+{
+	int math = 0;
+	long long len = 0;
+	int num = 0;
+	scanf("%d %d", &num, &math);
+	getchar();
+	char arr[1000] = { 0 };
+	int count = 0;
+	int digita[1000] = { 0 };
+	gets(arr);
+	trans(arr, num, digita);
+	int record = 0;
+	
+	for (int i = 0; i < num; i++)
+	{
+		int total = 0;
+        int j = 0;
+		for (j = i; j < i+ math; j++)
+		{
+			total = total*10 + digita[j];
+		}
+		if (prime(total))
+		{
+			for (int n = j-math; n < j; n++)
+			{
+				printf("%d", digita[n]);
+			}
+			record++;
+			break;
+		}
+	}
+	if (record == 0)
+	{
+		printf("404");
+	}
+	return 0;
+}
