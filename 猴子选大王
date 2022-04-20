@@ -1,0 +1,41 @@
+/*一群猴子要选新猴王。新猴王的选择方法是：让 N 只候选猴子围成一圈，从某位置起顺序编号为 1~N 号。从第 1 号开始报数，每轮从 1 报到 3，凡报到 3 的猴子即退出圈子，接着又从紧邻的下一只猴子开始同样的报数。如此不断循环，最后剩下的一只猴子就选为猴王。请问是原来第几号猴子当选猴王？*/
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	int arr[1000] = { 0 };
+	int input = 0;
+	scanf("%d", &input);
+	getchar();
+	int j = 0;
+	int i = 0;
+	while (1)
+	{
+		int count = 0;
+		for (i = 0; i < input; i++)
+		{
+			if (arr[i] != '\n')
+				j++;
+			if (j % 3 == 0)
+			{
+				arr[i] = '\n';
+			}
+		}
+		for (int i = 0; i < input; i++)
+		{
+			if (arr[i] == '\n')
+				count++;
+		}
+		if (count == input - 1)
+			break;
+	}
+	for (int i = 0; i < input; i++)
+	{
+		if (arr[i] != '\n')
+		{
+			printf("%d", i+1);
+			break;
+		}
+	}
+	return 0;
+}
