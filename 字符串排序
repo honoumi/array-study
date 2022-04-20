@@ -1,0 +1,39 @@
+/*本题要求编写程序，读入 5 个字符串，按由小到大的顺序输出。*/
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char arr[5][90] = { 0 };
+	for (int i = 0; i < 5; i++)
+	{
+		scanf("%s", arr[i]);
+	}
+	char temp[90] = { 0 };
+	for (int i = 1; i < 5; i++)
+	{
+		for (int j = 0; j < 5-i; j++)
+		{
+			if (strcmp(arr[j], arr[j + 1]) > 0)
+			{
+				strcpy(temp, arr[j]);
+				strcpy(arr[j], arr[j + 1]);
+				strcpy(arr[j + 1], temp);
+			}
+		}
+	}
+	printf("After sorted:\n");
+	for (int i = 0; i < 5; i++)
+	{
+		if (i == 4)
+		{
+			printf("%s", arr[i]);
+		}
+		else
+		{
+			printf("%s\n", arr[i]);
+		}
+	}
+
+	return 0;
+}
