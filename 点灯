@@ -1,0 +1,81 @@
+# array-study
+/*养牛场有n间牛棚，从1到n顺序编号，每间牛棚前面都安装了一盏灯，目前已经点亮了K盏灯。为了保证夜间照明，要求每个连续的r间牛棚至少有两盏灯被点亮，则至少还要点亮多少盏灯？*/
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	int light[1000010] = { 0 };
+	int total = 0;
+	scanf("%d", &total);
+	int k = 0;
+	scanf("%d", &k);
+	int sep = 0;
+	scanf("%d", &sep);
+	getchar();
+	int burn = 0;
+	int count = 0;
+
+
+	for (int j = 0; j < k;)
+		{
+			scanf("%d", &burn);
+			light[burn] = 1;
+			j++;
+		}
+			for (int i = 1; i <= total; i++)
+			{
+				int all = 0;
+				int temp = i;
+				int sum = 0;
+				while (sum < sep && temp <= total)
+				{
+					all += light[temp];
+					temp++;
+					sum++;
+				}
+
+				if (sum == sep)
+				{
+					if (all == 0)
+					{
+						light[i + (sep / 2) - 1] = 1;
+						light[i + sep - 1] = 1;
+						count += 2;
+						if (i + sep - 1 == total)
+							break;
+					}
+					else if (all == 1)
+					{
+						if (light[i + sep - 1] == 1)
+						{
+							light[i + sep - 2] = 1;
+							count++;
+							if (i + sep - 1 == total)
+								break;
+						}
+						else
+						{
+							light[i + sep - 1] = 1;
+							count++;
+							if (i + sep - 1 == total)
+								break;
+						}
+
+					}
+				}
+
+			}	
+		if (sep == 1)
+		{
+			printf("%d", total - k);
+		}
+		else if (sep == 0)
+		{
+			printf("2");
+		}
+		else
+			printf("%d", count);
+		
+	return 0;
+}
