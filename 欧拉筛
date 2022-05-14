@@ -1,0 +1,34 @@
+# array-study
+
+#include <stdio.h>
+#include <stdbool.h>
+bool flag[100];//标记素数
+int prime[100];//储存素数
+int main()
+{
+	int input = 0;
+	scanf("%d", &input);
+	int count = 1;
+	for (int i = 2; i <= input; i++)
+	{
+		if (!flag[i])
+		{
+			prime[count] = i;
+			count++;
+		}
+		for (int j = 1; j <= count && prime[j] * i <= input; j++)
+		{
+			flag[prime[j] * i] = true;
+			if (i % prime[j] == 0)
+				//此处是精髓，如果当前的i能够被整除，那么这个数之前⼀定已经被处理过了，然后直接跳过。(欧拉筛法的关建）
+				break;
+		}
+	}
+	int i = 1;
+	while (prime[i])
+	{
+		printf("%d ", prime[i]);
+		i++;
+	}
+	return 0;
+}
