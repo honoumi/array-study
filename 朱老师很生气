@@ -1,0 +1,75 @@
+# array-study
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+int main()
+{
+	char name[100005][20]={0};
+	char input[20];
+	int firstmistake = 0;
+	int total = 0;
+	char right[20] = "收到，朱老师";
+	char mistake[20] = "收到，猪老师";
+	char end[5] = "#";
+	int i = 0, j = 0;
+	scanf("%d", &total);
+	while (1)
+	{
+		scanf("%s", input);
+		if (strcmp(input, end) == 0)
+			break;
+		else
+		{
+			scanf("%d", &j);
+			if (strcmp(name[j], mistake) != 0 && strcmp(name[j], right) != 0)
+				i++;
+			strcpy(name[j], input);
+			if (firstmistake == 0 && strcmp(name[j], mistake) == 0)
+			{
+				firstmistake = j;
+			}
+		}
+	}
+	if (i != 0)
+	{
+		if(firstmistake)
+		printf("%d", firstmistake);
+        printf("\n");
+		int first = 0;
+		int nomistake = 0;
+		for (int j = 0; j < total; j++)
+		{
+			if (strcmp(name[j], mistake) == 0 && first++ == 0)
+			{
+				printf("%d", j);
+				nomistake++;
+			}
+			else if (strcmp(name[j], mistake) == 0)
+				printf(" %d", j);
+		}
+		if (nomistake == 0)
+			printf("all right!");
+		printf("\n");
+		if (i != total)
+		{
+			first = 0;
+			for (int j = 1; j <= total; j++)
+			{
+				if (strcmp(name[j], mistake) != 0 && strcmp(name[j], right) != 0 && first++ == 0)
+					printf("%d", j);
+				else if (strcmp(name[j], mistake) != 0 && strcmp(name[j], right) != 0)
+					printf(" %d", j);
+			}
+		}
+		else
+		{
+			printf("everyone is here!");
+		}
+	}
+	else
+	{
+		printf("no one!");
+	}
+	return 0;
+}
